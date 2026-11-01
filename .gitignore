@@ -1,0 +1,5 @@
+.env
+.env.local
+*.tar.gz
+node_modules/
+outputs/
