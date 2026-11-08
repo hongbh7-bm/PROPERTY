@@ -1,5 +1,15 @@
 const SALE_URL = "https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade";
 const RENT_URL = "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent";
+const GITHUB_ORIGIN = "https://hongbh7-bm.github.io";
+
+const withCors = (response) => {
+  const headers = new Headers(response.headers);
+  headers.set("access-control-allow-origin", GITHUB_ORIGIN);
+  headers.set("access-control-allow-methods", "GET, OPTIONS");
+  headers.set("access-control-allow-headers", "content-type");
+  headers.set("vary", "Origin");
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+};
 
 const text = (xml, names) => {
   for (const name of names) {
@@ -74,7 +84,10 @@ async function market(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === "/api/market") return market(request, env);
+    if (url.pathname === "/api/market") {
+      if (request.method === "OPTIONS") return withCors(new Response(null, { status: 204 }));
+      return withCors(await market(request, env));
+    }
     if (url.pathname === "/" || url.pathname === "/index.html") return new Response(PAGE, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-cache" } });
     return new Response("Not found", { status: 404 });
   }

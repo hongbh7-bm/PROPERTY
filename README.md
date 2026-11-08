@@ -30,8 +30,10 @@ REB_API_KEY=...
 
 자세한 변수 이름은 `.env.example`을 참고하세요.
 
-## 현재 배포본
+## 고객용 배포 주소
 
-https://yes-realty-yeongdeungpo.hongbh7.chatgpt.site/
+https://hongbh7-bm.github.io/PROPERTY/
+
+GitHub Pages 화면은 별도 서버의 `/api/market`을 호출합니다. 공공데이터 API 키는 서버 비밀 변수에만 저장되며 브라우저와 GitHub 소스에는 포함되지 않습니다.
 
 > 실거래 자료는 신고·정정 시점에 따라 달라질 수 있으므로 고객 브리핑 전 원문을 최종 확인하세요.
